@@ -1,0 +1,94 @@
+/* IT Services Chatbot — Admin Styles */
+
+.itsc-wrap { max-width: 1200px; }
+
+.itsc-wrap h1 { display: flex; align-items: center; gap: 12px; }
+.itsc-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #2271b1; color: #fff; border-radius: 20px;
+    font-size: 13px; font-weight: 600; padding: 2px 10px; min-width: 28px;
+}
+
+/* Layout */
+.itsc-layout { display: flex; gap: 24px; margin-top: 16px; }
+.itsc-sidebar {
+    width: 260px; flex-shrink: 0;
+    background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;
+    padding: 12px 0;
+}
+.itsc-main { flex: 1; }
+
+/* Flow list */
+#itsc-flow-list { margin: 0; padding: 0; list-style: none; }
+.itsc-flow-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; border-bottom: 1px solid #f0f0f1; cursor: pointer;
+    transition: background .15s;
+}
+.itsc-flow-item:last-child { border-bottom: none; }
+.itsc-flow-item:hover { background: #f6f7f7; }
+.itsc-flow-item.active { background: #e8f0fe; }
+.itsc-flow-name { font-weight: 500; font-size: 14px; }
+.itsc-flow-actions { display: flex; gap: 8px; font-size: 12px; }
+.itsc-flow-actions a { text-decoration: none; }
+.itsc-danger { color: #d63638 !important; }
+.itsc-danger:hover { color: #a00 !important; }
+
+/* Editor */
+.itsc-placeholder {
+    background: #fff; border: 2px dashed #c3c4c7; border-radius: 6px;
+    padding: 60px; text-align: center; color: #8c8f94;
+}
+.itsc-editor-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.itsc-editor-header h2 { margin: 0; }
+
+/* Question cards */
+.itsc-question-card {
+    background: #fff; border: 1px solid #c3c4c7; border-radius: 6px;
+    padding: 16px; margin-bottom: 12px;
+}
+.itsc-question-card-header { display: flex; align-items: flex-start; justify-content: space-between; }
+.itsc-question-card-header strong { font-size: 14px; }
+.itsc-question-card-actions { display: flex; gap: 10px; font-size: 13px; }
+.itsc-question-card-actions a { text-decoration: none; }
+.itsc-step-badge {
+    display: inline-block; background: #2271b1; color: #fff;
+    border-radius: 3px; font-size: 11px; padding: 1px 7px; margin-right: 8px;
+}
+.itsc-options-preview { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.itsc-option-pill {
+    background: #f0f0f1; border-radius: 20px; padding: 3px 12px;
+    font-size: 12px; color: #3c434a;
+}
+
+/* Modal */
+.itsc-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+}
+.itsc-modal-box {
+    background: #fff; border-radius: 8px; padding: 28px;
+    width: 440px; max-width: 95vw; box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+.itsc-modal-wide { width: 600px; }
+.itsc-modal-box h2 { margin-top: 0; }
+.itsc-modal-box label { display: block; font-weight: 600; margin-bottom: 16px; }
+.itsc-modal-box label input,
+.itsc-modal-box label textarea { display: block; width: 100%; margin-top: 4px; }
+.itsc-modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+/* Option list in modal */
+#itsc-modal-options-list { list-style: none; margin: 0; padding: 0; }
+.itsc-option-edit-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 0; border-bottom: 1px solid #f0f0f1;
+}
+.itsc-option-edit-row input { flex: 1; }
+.itsc-option-edit-row .itsc-rm-option { color: #d63638; cursor: pointer; font-weight: 700; font-size: 16px; line-height: 1; border: none; background: none; }
+
+/* Leads table */
+.itsc-leads-table .itsc-answer-row { font-size: 12px; margin-bottom: 2px; }
+.itsc-leads-table td { vertical-align: top; }
+
+/* Buttons */
+.itsc-btn-add-flow { margin-left: 8px !important; }
