@@ -1,0 +1,421 @@
+/**
+ * ASB Testimonials Showcase — front-end styles.
+ *
+ * Key ideas:
+ *  1. THEME-AWARE colour/font (inherited text colour + font, color-mix surfaces).
+ *  2. CONTAINER-BASED responsiveness. Layouts respond to the width of their own
+ *     container (via CSS Container Queries on the `.asb-ts-wrap` wrapper), NOT
+ *     the viewport. This is the critical fix: testimonials placed in a narrow
+ *     content column no longer try to show 3 cramped columns just because the
+ *     screen is wide. The slider's JS measures the track width for the same
+ *     reason.
+ *  3. CONTEXT-PROOF layout: structural display/flex/grid use `!important` so a
+ *     theme can't restack them, and theme styling that bleeds onto <blockquote>
+ *     is neutralised.
+ */
+
+/* The wrapper establishes a query container so descendants can size to IT. */
+.asb-ts-wrap {
+	container-type: inline-size;
+	container-name: asbts;
+}
+
+/* ---------------------------------------------------------------------------
+ * Design tokens (override from your theme to re-skin everything).
+ * ------------------------------------------------------------------------- */
+.asb-ts {
+	--asb-ts-accent: currentColor;
+	--asb-ts-star: #f5a623;
+
+	--asb-ts-card-bg: rgba(127, 127, 127, 0.06);
+	--asb-ts-card-bg: color-mix(in srgb, currentColor 5%, transparent);
+
+	--asb-ts-border: rgba(127, 127, 127, 0.22);
+	--asb-ts-border: color-mix(in srgb, currentColor 16%, transparent);
+
+	--asb-ts-muted: rgba(127, 127, 127, 0.9);
+	--asb-ts-muted: color-mix(in srgb, currentColor 62%, transparent);
+
+	--asb-ts-radius: 14px;
+	--asb-ts-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+	--asb-ts-gap: 20px;
+
+	box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	line-height: 1.55;
+}
+
+.asb-ts *,
+.asb-ts *::before,
+.asb-ts *::after {
+	box-sizing: border-box;
+}
+
+/* Shared card shell. */
+.asb-ts .asb-ts-card {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 14px;
+	margin: 0;
+	padding: 24px;
+	background: var(--asb-ts-card-bg);
+	color: inherit;
+	border: 1px solid var(--asb-ts-border);
+	border-radius: var(--asb-ts-radius);
+	box-shadow: var(--asb-ts-shadow);
+	text-align: left;
+}
+
+/* CRITICAL: the `hidden` attribute must beat the card's `display: flex !important`
+ * above. The spotlight layout hides inactive quotes via `hidden`; without this
+ * higher-specificity override, every quote would show at once. The attribute
+ * selector raises specificity so this `!important` wins over the card rule. */
+.asb-ts .asb-ts-card[hidden],
+.asb-ts [hidden] {
+	display: none !important;
+}
+
+/* Quote — reset properties themes commonly set on <blockquote>. */
+.asb-ts .asb-ts-quote {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	background: none !important;
+	quotes: none !important;
+	font-family: inherit !important;
+	font-size: 1.05rem !important;
+	font-style: normal !important;
+	font-weight: 400;
+	line-height: 1.55;
+	text-align: inherit;
+	color: inherit;
+}
+
+.asb-ts .asb-ts-quote::before,
+.asb-ts .asb-ts-quote::after {
+	content: none !important;
+}
+
+.asb-ts .asb-ts-quote p {
+	margin: 0 0 0.6em;
+}
+
+.asb-ts .asb-ts-quote p:last-child {
+	margin-bottom: 0;
+}
+
+/* Author / meta footer. */
+.asb-ts .asb-ts-meta {
+	display: flex !important;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	margin-top: auto;
+	padding: 0;
+	list-style: none;
+}
+
+.asb-ts .asb-ts-avatar img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	object-fit: cover;
+	display: block;
+	max-width: none;
+}
+
+.asb-ts .asb-ts-author {
+	display: flex !important;
+	flex-direction: column !important;
+	line-height: 1.25;
+}
+
+.asb-ts .asb-ts-name {
+	font-weight: 700;
+}
+
+.asb-ts .asb-ts-role {
+	color: var(--asb-ts-muted);
+	font-size: 0.85rem;
+}
+
+/* Star rating. */
+.asb-ts .asb-ts-rating {
+	display: inline-flex !important;
+	gap: 2px;
+	font-size: 1.05rem;
+	letter-spacing: 1px;
+	line-height: 1;
+}
+
+.asb-ts .asb-ts-star { color: var(--asb-ts-border); }
+.asb-ts .asb-ts-star--on { color: var(--asb-ts-star); }
+
+.asb-ts--empty {
+	color: var(--asb-ts-muted);
+	font-style: italic;
+}
+
+/* ===========================================================================
+ * 1) Classic card grid — columns scale to the CONTAINER width.
+ * ======================================================================== */
+.asb-ts--grid {
+	display: grid !important;
+	grid-template-columns: 1fr;
+	gap: var(--asb-ts-gap);
+}
+
+@container asbts (min-width: 560px) {
+	.asb-ts--grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@container asbts (min-width: 900px) {
+	.asb-ts--grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===========================================================================
+ * 2) Horizontal slider / carousel.
+ * The JS sizes slides to the track width; these container-query rules are the
+ * no-JS fallback and keep the cards readable at any container width.
+ * ======================================================================== */
+.asb-ts--slider {
+	position: relative;
+	padding: 0 44px;
+}
+
+.asb-ts--slider .asb-ts-track {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: nowrap !important;
+	gap: var(--asb-ts-gap);
+	margin: 0;
+	padding: 6px 0;
+	list-style: none;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;      /* hide scrollbar (Firefox) — use buttons/swipe */
+	-ms-overflow-style: none;   /* hide scrollbar (legacy Edge/IE) */
+	align-items: stretch;       /* slides stretch to equal height */
+}
+
+/* Hide the WebKit/Blink scrollbar (Chrome/Safari/Edge). Scrolling still works
+ * via the prev/next buttons, touch swipe and keyboard arrows. */
+.asb-ts--slider .asb-ts-track::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	display: none;
+}
+
+.asb-ts--slider .asb-ts-slide {
+	display: flex !important;   /* let the card fill the slide height */
+	flex: 0 0 100%;
+	min-width: 0;
+	margin: 0;
+	list-style: none;
+	scroll-snap-align: start;
+}
+
+.asb-ts--slider .asb-ts-slide > .asb-ts-card {
+	flex: 1 1 auto;
+	width: 100%;
+}
+
+@container asbts (min-width: 580px) {
+	.asb-ts--slider .asb-ts-slide {
+		flex: 0 0 calc(50% - (var(--asb-ts-gap) / 2));
+	}
+}
+
+@container asbts (min-width: 900px) {
+	.asb-ts--slider .asb-ts-slide {
+		flex: 0 0 calc(33.333% - (var(--asb-ts-gap) * 2 / 3));
+	}
+}
+
+.asb-ts--slider .asb-ts-nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	border-radius: 50%;
+	border: 1px solid var(--asb-ts-border);
+	background: var(--asb-ts-card-bg);
+	color: inherit;
+	font-size: 22px;
+	line-height: 1;
+	cursor: pointer;
+	box-shadow: var(--asb-ts-shadow);
+	z-index: 2;
+}
+
+.asb-ts--slider .asb-ts-nav:hover,
+.asb-ts--slider .asb-ts-nav:focus-visible {
+	border-color: var(--asb-ts-accent);
+	color: var(--asb-ts-accent);
+	outline: none;
+}
+
+.asb-ts--slider .asb-ts-nav--prev { left: 0; }
+.asb-ts--slider .asb-ts-nav--next { right: 0; }
+
+/* ===========================================================================
+ * 3) Single-quote spotlight
+ * ======================================================================== */
+.asb-ts--spotlight {
+	max-width: 760px;
+	margin-inline: auto;
+	text-align: center;
+}
+
+.asb-ts--spotlight .asb-ts-card {
+	align-items: center;
+	padding: 40px 28px;
+	text-align: center;
+}
+
+.asb-ts--spotlight .asb-ts-quote {
+	font-size: 1.3rem !important;
+	line-height: 1.5;
+	text-align: center;
+}
+
+@container asbts (min-width: 600px) {
+	.asb-ts--spotlight .asb-ts-quote { font-size: 1.5rem !important; }
+}
+
+.asb-ts--spotlight .asb-ts-rating { justify-content: center; font-size: 1.3rem; }
+.asb-ts--spotlight .asb-ts-meta { justify-content: center; margin-top: 8px; }
+
+.asb-ts--spotlight .asb-ts-dots {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 18px;
+}
+
+.asb-ts--spotlight .asb-ts-dot {
+	width: 11px;
+	height: 11px;
+	padding: 0;
+	border-radius: 50%;
+	border: 0;
+	background: var(--asb-ts-border);
+	cursor: pointer;
+	transition: transform 0.15s ease;
+}
+
+.asb-ts--spotlight .asb-ts-dot[aria-selected="true"] {
+	background: var(--asb-ts-accent);
+	transform: scale(1.25);
+}
+
+/* ===========================================================================
+ * 4) Masonry grid — column count scales to the CONTAINER.
+ * ======================================================================== */
+.asb-ts--masonry {
+	display: block !important;
+	column-count: 1;
+	column-gap: var(--asb-ts-gap);
+}
+
+@container asbts (min-width: 560px) {
+	.asb-ts--masonry { column-count: 2; }
+}
+
+@container asbts (min-width: 940px) {
+	.asb-ts--masonry { column-count: 3; }
+}
+
+.asb-ts--masonry .asb-ts-masonry-item {
+	break-inside: avoid;
+	margin: 0 0 var(--asb-ts-gap);
+	display: inline-block !important;
+	width: 100%;
+}
+
+/* ===========================================================================
+ * 5) Minimal list with avatars
+ * ======================================================================== */
+.asb-ts--list {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.asb-ts--list .asb-ts-row { margin: 0; padding: 0; list-style: none; }
+
+.asb-ts--list .asb-ts-card {
+	flex-direction: row !important;
+	align-items: flex-start;
+	gap: 16px;
+	box-shadow: none;
+	border-radius: 10px;
+}
+
+.asb-ts--list .asb-ts-meta {
+	order: -1;
+	flex-direction: column !important;
+	align-items: center;
+	margin-top: 0;
+	flex: 0 0 auto;
+	text-align: center;
+}
+
+.asb-ts--list .asb-ts-avatar img { width: 56px; height: 56px; }
+
+/* ===========================================================================
+ * 6) Bubble / chat-style speech cards
+ * ======================================================================== */
+.asb-ts--bubble {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 26px;
+}
+
+.asb-ts--bubble .asb-ts-bubble-item {
+	display: flex !important;
+	flex-direction: column !important;
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+	gap: 10px;
+}
+
+.asb-ts--bubble .asb-ts-bubble-body {
+	background: var(--asb-ts-card-bg);
+	border: 1px solid var(--asb-ts-border);
+	border-radius: 18px 18px 18px 4px;
+	box-shadow: var(--asb-ts-shadow);
+	padding: 20px 22px;
+}
+
+.asb-ts--bubble .asb-ts-bubble-item .asb-ts-meta { padding-left: 10px; }
+
+@container asbts (min-width: 640px) {
+	.asb-ts--bubble .asb-ts-bubble-item:nth-child(even) { align-items: flex-end; }
+	.asb-ts--bubble .asb-ts-bubble-item:nth-child(even) .asb-ts-bubble-body {
+		border-radius: 18px 18px 4px 18px;
+		max-width: 80%;
+	}
+	.asb-ts--bubble .asb-ts-bubble-item:nth-child(odd) .asb-ts-bubble-body { max-width: 80%; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+	.asb-ts--slider .asb-ts-track { scroll-behavior: auto; }
+	.asb-ts--spotlight .asb-ts-dot { transition: none; }
+}

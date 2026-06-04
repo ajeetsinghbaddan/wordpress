@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "asb/testimonials",
+	"version": "1.0.6",
+	"title": "Testimonials Showcase",
+	"category": "widgets",
+	"icon": "format-quote",
+	"description": "Display client testimonials in one of six responsive layouts.",
+	"keywords": [ "testimonial", "review", "quote", "slider" ],
+	"textdomain": "asb-testimonials-showcase",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"design": {
+			"type": "string",
+			"default": "grid"
+		},
+		"category": {
+			"type": "number",
+			"default": 0
+		},
+		"count": {
+			"type": "number",
+			"default": 6
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:../../assets/css/asb-testimonials.css",
+	"style": "asb-ts-frontend",
+	"viewScript": "asb-ts-frontend-js"
+}

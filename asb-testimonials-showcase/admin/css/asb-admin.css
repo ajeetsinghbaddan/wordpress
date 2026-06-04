@@ -1,0 +1,21 @@
+/**
+ * Admin styles for the testimonial meta box.
+ * Scoped under .asb-ts-fields so it never bleeds into the rest of wp-admin.
+ */
+.asb-ts-fields .asb-ts-photo-preview {
+	display: inline-block;
+	margin: 6px 0;
+	min-height: 0;
+}
+
+.asb-ts-fields .asb-ts-photo-preview img {
+	max-width: 96px;
+	height: auto;
+	border-radius: 6px;
+	border: 1px solid #dcdcde;
+	display: block;
+}
+
+.asb-ts-fields .asb-ts-photo-remove {
+	margin-left: 6px;
+}
