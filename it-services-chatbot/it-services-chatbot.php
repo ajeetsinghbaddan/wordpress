@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: IT Services Chatbot
- * Plugin URI:  https://example.com/it-services-chatbot
+ * Plugin URI:  https://github.com/ajeetsinghbaddan/wordpress/tree/main/it-services-chatbot
  * Description: A fully configurable branching chatbot that collects lead details for IT service enquiries.
  * Version:     1.0.0
- * Author:      Your Agency
+ * Author:      Ajeet Singh Baddan
  * Text Domain: it-services-chatbot
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html

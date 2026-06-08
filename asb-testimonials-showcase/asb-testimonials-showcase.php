@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       ASB Testimonials Showcase
- * Plugin URI:        https://example.com/asb-testimonials-showcase
+ * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/asb-testimonials-showcase
  * Description:        Create, manage and display client testimonials in six responsive, accessible layouts via shortcode, Gutenberg block, or Elementor widget.
  * Version:           1.0.6
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Author:            ASB
+ * Author:            Ajeet Singh Baddan
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       asb-testimonials-showcase

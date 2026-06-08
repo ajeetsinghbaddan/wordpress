@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "versatile-gallery/gallery",
+	"version": "1.0.0",
+	"title": "Versatile Gallery",
+	"category": "media",
+	"icon": "format-gallery",
+	"description": "A secure, responsive image gallery with an optional lightbox.",
+	"keywords": [ "gallery", "images", "photos", "lightbox" ],
+	"textdomain": "versatile-gallery",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"ids": {
+			"type": "array",
+			"items": { "type": "number" },
+			"default": []
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"gap": {
+			"type": "number",
+			"default": 12
+		},
+		"size": {
+			"type": "string",
+			"default": "medium"
+		},
+		"layout": {
+			"type": "string",
+			"default": "grid"
+		},
+		"lightbox": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "versatile-gallery",
+	"style": "versatile-gallery",
+	"viewScript": "versatile-gallery",
+	"render": "file:./render.php"
+}
