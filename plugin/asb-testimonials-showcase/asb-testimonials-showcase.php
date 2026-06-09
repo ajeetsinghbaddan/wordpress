@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       ASB Testimonials Showcase
- * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/asb-testimonials-showcase
+ * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/asb-testimonials-showcase
  * Description:        Create, manage and display client testimonials in six responsive, accessible layouts via shortcode, Gutenberg block, or Elementor widget.
  * Version:           1.0.6
  * Requires at least: 6.0

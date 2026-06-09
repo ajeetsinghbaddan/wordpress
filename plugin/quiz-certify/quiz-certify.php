@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Quiz Certify
- * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/quiz-certify
+ * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/quiz-certify
  * Description:       Create multiple quizzes and let users print a certificate when they pass. Stores student records.
  * Version:           1.0
  * Requires at least: 6.0

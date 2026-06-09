@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Versatile Gallery
- * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/versatile-gallery
+ * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/versatile-gallery
  * Description:       A secure, lightweight image gallery available as a Gutenberg block, an Elementor widget, and a shortcode.
  * Version:           1.0.0
  * Requires at least: 6.0

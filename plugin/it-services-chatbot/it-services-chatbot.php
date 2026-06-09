@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: IT Services Chatbot
- * Plugin URI:  https://github.com/ajeetsinghbaddan/wordpress/tree/main/it-services-chatbot
+ * Plugin URI:  https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/it-services-chatbot
  * Description: A fully configurable branching chatbot that collects lead details for IT service enquiries.
  * Version:     1.0.0
  * Author:      Ajeet Singh Baddan
