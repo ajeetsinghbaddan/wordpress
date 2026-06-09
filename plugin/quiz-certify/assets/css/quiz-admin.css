@@ -1,0 +1,43 @@
+/* Quiz Certify - admin question editor styles. */
+
+.qc-questions-wrap { margin-bottom: 8px; }
+
+.qc-question {
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #b08a4a;
+	border-radius: 6px;
+	padding: 16px 18px;
+	margin-bottom: 16px;
+	background: #fff;
+}
+
+.qc-question-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.qc-question-label {
+	font-size: 14px;
+	color: #1d2327;
+}
+.qc-remove-question {
+	font-size: 22px;
+	line-height: 1;
+	color: #b32d2e;
+	text-decoration: none;
+	cursor: pointer;
+}
+.qc-remove-question:hover { color: #8a1f20; }
+
+.qc-options { margin-top: 8px; }
+.qc-option {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+.qc-option .qc-correct-toggle { margin: 0; }
+.qc-option input[type="text"] { flex: 1; max-width: 460px; }
+
+.qc-question .description { margin-top: 6px; color: #646970; }

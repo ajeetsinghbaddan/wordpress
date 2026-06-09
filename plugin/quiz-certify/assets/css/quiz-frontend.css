@@ -1,0 +1,178 @@
+/* Quiz Certify - front-end styles, designed to INHERIT the active theme.
+ *
+ * Strategy:
+ *  - Typography and colour are inherited (font/color: inherit), so the quiz adopts the
+ *    theme's body text automatically.
+ *  - All cosmetic fallbacks (borders, padding, button paint) are wrapped in :where(),
+ *    which has ZERO specificity. That means any rule the theme provides — including a
+ *    block theme's .wp-element-button or a classic theme's input styles — always wins.
+ *    The plugin's look only shows through where the theme styles nothing.
+ *  - Only true layout (grid, flex, list resets, spacing) and semantic pass/fail colours
+ *    are kept at normal specificity, because those rarely collide with a theme.
+ *
+ * To drop the plugin CSS entirely and style everything yourself:
+ *   add_filter( 'quiz_certify_load_styles', '__return_false' );
+ */
+
+.qc-quiz {
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	--qc-pass: #2f7d52;
+	--qc-fail: #b4452f;
+}
+.qc-quiz * { box-sizing: border-box; }
+
+/* ---- Structural layout (kept) ---- */
+.qc-quiz-header { margin-bottom: 1.25em; }
+.qc-quiz-title { margin: 0 0 .2em; }
+.qc-quiz-meta { margin: 0; opacity: .7; font-size: .9em; }
+
+.qc-field { margin: 0 0 1.25em; }
+.qc-field label { display: block; font-weight: 600; margin-bottom: .4em; }
+.qc-name-input, .qc-email-input { width: 100%; }
+
+.qc-questions { list-style: none; counter-reset: qc-q; margin: 0; padding: 0; }
+.qc-question-item { counter-increment: qc-q; padding: 1.1em 0; }
+.qc-question-text { font-weight: 600; margin: 0 0 .7em; }
+.qc-question-text::before { content: counter(qc-q) ". "; opacity: .55; }
+.qc-hint { font-weight: 400; font-size: .85em; opacity: .7; margin-left: .3em; }
+
+.qc-options-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5em; }
+.qc-option-item label { display: flex; align-items: flex-start; gap: .6em; cursor: pointer; }
+.qc-option-item input { margin-top: .2em; flex: 0 0 auto; }
+
+.qc-actions { margin-top: 1.5em; }
+.qc-form-error { color: var(--qc-fail); font-weight: 600; margin: .8em 0 0; min-height: 1em; }
+
+/* ---- Result panel (structural + semantic colour) ---- */
+.qc-result { text-align: center; padding: 1.75em 0; }
+.qc-result-badge {
+	width: 3em; height: 3em; border-radius: 50%;
+	display: flex; align-items: center; justify-content: center;
+	font-size: 1.4em; color: #fff; margin: 0 auto .7em;
+}
+.qc-pass .qc-result-badge { background: var(--qc-pass); }
+.qc-fail .qc-result-badge { background: var(--qc-fail); }
+.qc-result-heading { margin: 0 0 .3em; }
+.qc-result-score { font-size: 1.15em; font-weight: 700; margin: 0 0 .2em; }
+.qc-result-sub { opacity: .75; margin: 0 0 1.4em; }
+
+/* ---- Zero-specificity cosmetic fallbacks (theme overrides everything below) ---- */
+:where(.qc-quiz .qc-name-input, .qc-quiz .qc-email-input) {
+	padding: .6em .75em;
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border: 1px solid currentColor;
+	border-radius: .4em;
+	opacity: 1;
+}
+:where(.qc-quiz .qc-name-input:focus, .qc-quiz .qc-email-input:focus) {
+	outline: 2px solid currentColor;
+	outline-offset: 1px;
+}
+:where(.qc-quiz .qc-question-item) {
+	border-top: 1px solid currentColor;
+}
+:where(.qc-quiz .qc-option-item label) {
+	padding: .6em .75em;
+	border: 1px solid currentColor;
+	border-radius: .4em;
+}
+/* Buttons inherit the theme's button look via .wp-element-button / .button. These
+   fallbacks only paint a button when the theme provides none. */
+:where(.qc-quiz .qc-submit-btn),
+:where(.qc-quiz .qc-cert-btn) {
+	display: inline-block;
+	font: inherit;
+	cursor: pointer;
+	text-decoration: none;
+	padding: .7em 1.5em;
+	border: 1px solid currentColor;
+	border-radius: .4em;
+	background: transparent;
+	color: inherit;
+}
+:where(.qc-quiz .qc-submit-btn:disabled) { opacity: .6; cursor: default; }
+
+/* Soften the currentColor borders a touch where the browser supports color-mix, so the
+   fallback look isn't harsh. Still zero specificity, so the theme wins regardless. */
+@supports (border-color: color-mix(in srgb, currentColor 20%, transparent)) {
+	:where(.qc-quiz .qc-name-input, .qc-quiz .qc-email-input),
+	:where(.qc-quiz .qc-option-item label),
+	:where(.qc-quiz .qc-question-item) {
+		border-color: color-mix(in srgb, currentColor 22%, transparent);
+	}
+}
+
+/* ===== Quiz listing (grid of quizzes) =====================================
+ * Same philosophy as the quiz form: inherit the theme's type/colour, keep only
+ * structural layout at normal specificity, and put cosmetic fallbacks in :where()
+ * so the theme overrides them. */
+
+.qc-quiz-list { color: inherit; font-family: inherit; }
+
+.qc-list-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+	gap: 1.1rem;
+	margin: 0;
+}
+
+.qc-list-card {
+	display: flex;
+	flex-direction: column;
+	gap: .6rem;
+	padding: 1.2rem;
+	height: 100%;
+}
+.qc-list-card-title { margin: 0; font-size: 1.15em; }
+.qc-list-card-meta {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .4rem;
+	font-size: .82em;
+	opacity: .85;
+}
+.qc-meta-pill { display: inline-block; padding: .15em .6em; line-height: 1.5; }
+
+.qc-list-start { margin-top: auto; align-self: flex-start; }
+
+.qc-list-back {
+	display: inline-block;
+	margin-bottom: 1rem;
+	background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	opacity: .85;
+}
+.qc-list-back:hover { opacity: 1; text-decoration: underline; }
+
+.qc-list-loading { padding: 1.5rem 0; opacity: .7; }
+.qc-list-empty { opacity: .8; }
+
+/* Zero-specificity cosmetic fallbacks — theme overrides all of these. */
+:where(.qc-quiz-list .qc-list-card) {
+	border: 1px solid currentColor;
+	border-radius: .6em;
+	background: transparent;
+}
+:where(.qc-quiz-list .qc-meta-pill) {
+	border: 1px solid currentColor;
+	border-radius: 999px;
+}
+@supports (border-color: color-mix(in srgb, currentColor 20%, transparent)) {
+	:where(.qc-quiz-list .qc-list-card),
+	:where(.qc-quiz-list .qc-meta-pill) {
+		border-color: color-mix(in srgb, currentColor 20%, transparent);
+	}
+}
+
+/* Required-field marker */
+.qc-quiz .qc-required { color: var(--qc-fail); font-weight: 700; }
