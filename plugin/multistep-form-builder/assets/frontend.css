@@ -1,0 +1,125 @@
+.msfb-form-wrap {
+    max-width: 100%;
+}
+
+.msfb-progress {
+    display: flex;
+    gap: 0.75em;
+    margin-bottom: 1.5em;
+}
+
+.msfb-progress-dot {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    opacity: 0.45;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.msfb-progress-dot.active {
+    opacity: 1;
+    border-width: 2px;
+}
+
+.msfb-progress-dot.completed {
+    opacity: 1;
+}
+
+.msfb-step {
+    display: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-inline-size: auto;
+}
+
+.msfb-step.active {
+    display: block;
+}
+
+.msfb-step legend {
+    font-weight: 600;
+    margin-bottom: 0.75em;
+    padding: 0;
+}
+
+.msfb-field {
+    margin-bottom: 1em;
+}
+
+.msfb-field > label {
+    display: block;
+    margin-bottom: 0.35em;
+}
+
+.msfb-required {
+    color: var(--wp--preset--color--vivid-red, #cc1818);
+}
+
+.msfb-field input:not([type="checkbox"]):not([type="radio"]),
+.msfb-field select,
+.msfb-field textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.msfb-choice {
+    display: block;
+    margin-bottom: 0.25em;
+    font-weight: normal;
+}
+
+.msfb-error {
+    display: block;
+    color: var(--wp--preset--color--vivid-red, #cc1818);
+    font-size: 0.875em;
+    margin-top: 0.25em;
+}
+
+.msfb-error:empty {
+    display: none;
+}
+
+.msfb-hp {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.msfb-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75em;
+    margin-top: 1.25em;
+}
+
+.msfb-next,
+.msfb-submit {
+    margin-left: auto;
+}
+
+.msfb-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.msfb-message {
+    margin-top: 1em;
+    font-weight: 600;
+}
+
+.msfb-message:empty {
+    display: none;
+}
+
+.msfb-message.error {
+    color: var(--wp--preset--color--vivid-red, #cc1818);
+}
