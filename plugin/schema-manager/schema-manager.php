@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Simple Schema Manager
- * Plugin URL: https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/schema-manager
+ * Plugin URI: https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/schema-manager
  * Description: Adds JSON-LD schema markup to pages and posts, with automatic and manual modes plus a general settings panel.
  * Version:     1.0.0
  * Author:      Ajeet Singh Baddan
