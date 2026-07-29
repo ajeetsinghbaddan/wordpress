@@ -1,0 +1,93 @@
+/* Flipbook block - editor preview card. */
+
+.fbs-block-card {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	padding: 22px 24px;
+	border-radius: 4px;
+	background: #12161f;
+	color: #e8eaf0;
+}
+
+.fbs-block-card--paper {
+	background: #efece4;
+	color: #23201a;
+}
+
+.fbs-block-card--slate {
+	background: #22262b;
+	color: #e6e8ea;
+}
+
+/* A tiny CSS-only open book, so the card reads as "flipbook" at a glance
+   without loading a single asset into the editor. */
+.fbs-block-card__book {
+	position: relative;
+	flex: 0 0 auto;
+	width: 74px;
+	height: 52px;
+	perspective: 300px;
+}
+
+.fbs-block-card__spine {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	transform: translateX(-50%);
+	background: #c9973f;
+	opacity: 0.8;
+}
+
+.fbs-block-card__page {
+	position: absolute;
+	top: 2px;
+	bottom: 2px;
+	width: 34px;
+	background: #f6f2e8;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.fbs-block-card__page:first-of-type {
+	left: 2px;
+	border-radius: 3px 0 0 3px;
+}
+
+.fbs-block-card__page--turn {
+	right: 2px;
+	border-radius: 0 3px 3px 0;
+	transform-origin: left center;
+	transform: rotateY(-24deg);
+	background: linear-gradient(to right, #ece7da, #f6f2e8 40%);
+}
+
+.fbs-block-card__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	min-width: 0;
+	flex: 1;
+}
+
+.fbs-block-card__meta strong {
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.fbs-block-card__meta > span {
+	font-size: 12px;
+	opacity: 0.65;
+}
+
+.fbs-block-card__warn {
+	color: #f0b849;
+	opacity: 1 !important;
+}
+
+.fbs-block-card--paper .fbs-block-card__warn {
+	color: #996800;
+}
