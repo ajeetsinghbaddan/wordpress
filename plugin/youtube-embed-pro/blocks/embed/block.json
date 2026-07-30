@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ytep/embed",
+	"title": "YouTube Embed Pro",
+	"category": "embed",
+	"icon": "video-alt3",
+	"description": "Embed a YouTube video, Short, playlist or live stream with privacy-friendly defaults.",
+	"keywords": [ "youtube", "video", "shorts", "playlist", "embed" ],
+	"textdomain": "ytep",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"attributes": {
+		"url": { "type": "string", "default": "" },
+		"channel": { "type": "string", "default": "" },
+		"kind": { "type": "string", "default": "auto" },
+		"title": { "type": "string", "default": "" },
+		"ratio": { "type": "string", "default": "" },
+		"maxWidth": { "type": "number", "default": 0 },
+		"start": { "type": "number", "default": 0 },
+		"privacy": { "type": "boolean", "default": true },
+		"facade": { "type": "boolean", "default": true },
+		"autoplay": { "type": "boolean", "default": false },
+		"loop": { "type": "boolean", "default": false },
+		"controls": { "type": "boolean", "default": true },
+		"captions": { "type": "boolean", "default": false }
+	},
+	"editorScript": "file:./editor.js"
+}
