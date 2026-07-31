@@ -3,7 +3,7 @@
  * Plugin Name: Multistep Form Builder
  * Plugin URI: https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/multistep-form-builder
  * Description: Create multistep forms with unlimited steps and fields. Theme-inherited styling, Gutenberg block, Elementor widget, hardened submissions.
- * Version: 1.1.0
+ * Version: 1.0.0
  * Author: Ajeet Singh Baddan
  * Text Domain: msfb
  */

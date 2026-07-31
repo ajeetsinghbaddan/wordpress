@@ -3,7 +3,7 @@
  * Plugin Name:       Flipbook Studio
  * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/flipbook-studio
  * Description:       Upload a PDF and publish it as a secure, interactive flipbook. Private file storage, signed short-lived URLs, password + expiry gating, thumbnails, search, outline and reading analytics.
- * Version:           1.0
+ * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Ajeet Singh Baddan

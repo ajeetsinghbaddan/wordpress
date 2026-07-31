@@ -3,7 +3,7 @@
  * Plugin Name:       ASB Testimonials Showcase
  * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/asb-testimonials-showcase
  * Description:        Create, manage and display client testimonials in six responsive, accessible layouts via shortcode, Gutenberg block, or Elementor widget.
- * Version:           1.0.6
+ * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Ajeet Singh Baddan

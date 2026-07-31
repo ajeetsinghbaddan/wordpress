@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: Scroll Reveal Animator
+ * Plugin URI: https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/scroll-reveal-animator
  * Description: Reveal any content with smooth animations as visitors scroll. Works with Gutenberg blocks, Elementor, shortcodes, and any theme via CSS classes.
  * Version: 1.0.0
  * Requires at least: 5.8

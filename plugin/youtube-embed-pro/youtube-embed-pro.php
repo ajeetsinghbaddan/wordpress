@@ -1,8 +1,9 @@
 <?php
 /**
  * Plugin Name:       YouTube Embed Pro
+ * Plugin URI:        https://github.com/ajeetsinghbaddan/wordpress/tree/main/plugin/youtube-embed-pro
  * Description:       Secure, privacy-friendly YouTube embeds for videos, Shorts, playlists and live streams. Provides a [yt_embed] shortcode and a block.
- * Version:           1.0
+ * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Ajeet Singh Baddan
