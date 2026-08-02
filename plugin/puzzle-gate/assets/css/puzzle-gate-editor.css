@@ -1,0 +1,62 @@
+/*
+ * Puzzle Gate — editor canvas only.
+ *
+ * The front-end plate is a dark machined object; inside the editor that would
+ * fight the theme's own block styles and make the nested blocks hard to edit.
+ * So the editor shows a quiet brass-outlined container instead: same identity,
+ * none of the drama, and the author's blocks render normally inside it.
+ */
+
+.pgz-editor {
+	position: relative;
+	margin: 1.5rem 0;
+	padding: 2.25rem 1rem 1rem;
+	border: 1px dashed #c9a227;
+	border-radius: 4px;
+	background: rgba( 201, 162, 39, .035 );
+}
+
+.pgz-editor__head {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+}
+
+.pgz-editor__badge {
+	display: inline-block;
+	padding: .25rem .55rem;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: .68rem;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: #0e141b;
+	background: #c9a227;
+}
+
+.pgz-editor__meta {
+	font-size: .72rem;
+	color: #6b7785;
+}
+
+.pgz-editor__note {
+	margin: 0 0 .85rem;
+	font-size: .78rem;
+	line-height: 1.45;
+	color: #6b7785;
+}
+
+.pgz-editor__body {
+	padding: .25rem .75rem;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+}
+
+.pgz-editor__id {
+	margin: .5rem 0 0;
+	font-size: .72rem;
+	color: #6b7785;
+}

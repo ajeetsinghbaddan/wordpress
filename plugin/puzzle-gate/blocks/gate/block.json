@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "puzzle-gate/gate",
+	"title": "Puzzle Gate",
+	"category": "design",
+	"icon": "lock",
+	"description": "Hide the blocks inside behind a puzzle. Nothing inside reaches the browser until the server confirms a solve.",
+	"keywords": [ "lock", "puzzle", "hidden", "gate", "paywall" ],
+	"textdomain": "puzzle-gate",
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"attributes": {
+		"gateId": { "type": "string", "default": "" },
+		"type": { "type": "string", "default": "slide" },
+		"title": { "type": "string", "default": "Locked" },
+		"teaser": { "type": "string", "default": "Solve the puzzle to open this section." },
+		"buttonText": { "type": "string", "default": "Open the lock" },
+		"size": { "type": "number", "default": 3 },
+		"image": { "type": "string", "default": "" },
+		"question": { "type": "string", "default": "" },
+		"answer": { "type": "string", "default": "" },
+		"hint": { "type": "string", "default": "" },
+		"difficulty": { "type": "string", "default": "normal" }
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "puzzle-gate-editor"
+}

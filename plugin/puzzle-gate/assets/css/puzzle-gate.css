@@ -1,0 +1,318 @@
+/*
+ * Puzzle Gate — front-end styles
+ *
+ * Design note: the gate is deliberately its own object on the page rather than
+ * a card that inherits the theme. It reads as a machined metal plate bolted over
+ * the content: deep slate surface, brass hardware, monospaced readouts like a
+ * mechanical counter. The signature moment is the seam down the middle of the
+ * plate, which splits apart when the lock opens.
+ *
+ * Everything is scoped under .pgz so it cannot leak into the theme, and all
+ * colours come from custom properties so a site can retheme it in three lines.
+ */
+
+.pgz {
+	--pgz-accent: #c9a227;
+	--pgz-ink: #0e141b;
+	--pgz-surface: #18222d;
+	--pgz-raised: #22303e;
+	--pgz-line: #31424f;
+	--pgz-text: #e6edf3;
+	--pgz-muted: #8ea0b2;
+	--pgz-radius: 4px;
+	--pgz-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+	margin: 2rem 0;
+	container-type: inline-size;
+}
+
+/* ---------- the plate ---------- */
+
+.pgz__plate {
+	position: relative;
+	overflow: hidden;
+	padding: clamp(1.5rem, 5vw, 2.75rem);
+	color: var(--pgz-text);
+	background:
+		radial-gradient(120% 100% at 50% 0%, var(--pgz-raised) 0%, var(--pgz-surface) 55%, var(--pgz-ink) 100%);
+	border: 1px solid var(--pgz-line);
+	border-radius: var(--pgz-radius);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 18px 40px -28px rgba(0, 0, 0, .9);
+}
+
+/* The signature: a hairline seam with two brass rivets, sitting over the plate.
+   On unlock it retracts to nothing. */
+.pgz__seam {
+	position: absolute;
+	inset: 0 auto 0 50%;
+	width: 1px;
+	background: linear-gradient(180deg, transparent, var(--pgz-line) 12%, var(--pgz-line) 88%, transparent);
+	transform-origin: center;
+	transition: transform .5s ease, opacity .5s ease;
+}
+
+.pgz__seam::before,
+.pgz__seam::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	width: 7px;
+	height: 7px;
+	margin-left: -3.5px;
+	border-radius: 50%;
+	background: var(--pgz-line);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+
+.pgz__seam::before { top: 14px; }
+.pgz__seam::after  { bottom: 14px; }
+
+.pgz.is-open .pgz__seam {
+	transform: scaleY(0);
+	opacity: 0;
+}
+
+/* ---------- intro ---------- */
+
+.pgz__eyebrow {
+	margin: 0 0 .5rem;
+	font-family: var(--pgz-mono);
+	font-size: .68rem;
+	letter-spacing: .22em;
+	text-transform: uppercase;
+	color: var(--pgz-accent);
+}
+
+.pgz__title {
+	margin: 0 0 .4rem;
+	font-size: clamp(1.35rem, 3.5cqw + .8rem, 2rem);
+	line-height: 1.1;
+	letter-spacing: -.01em;
+	color: var(--pgz-text);
+}
+
+.pgz__teaser {
+	margin: 0 0 1.4rem;
+	max-width: 46ch;
+	color: var(--pgz-muted);
+	font-size: .95rem;
+	line-height: 1.55;
+}
+
+/* ---------- controls ---------- */
+
+.pgz__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: .5rem;
+	padding: .7rem 1.25rem;
+	font: inherit;
+	font-size: .9rem;
+	font-weight: 600;
+	color: var(--pgz-ink);
+	background: var(--pgz-accent);
+	border: 0;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: transform .15s ease, filter .15s ease;
+}
+
+.pgz__btn:hover { filter: brightness(1.1); }
+.pgz__btn:active { transform: translateY(1px); }
+
+.pgz__btn--ghost {
+	color: var(--pgz-muted);
+	background: transparent;
+	border: 1px solid var(--pgz-line);
+	font-weight: 500;
+}
+
+.pgz__btn--ghost:hover { color: var(--pgz-text); }
+
+.pgz__btn[disabled] { opacity: .5; cursor: default; }
+
+/* Keyboard users must always be able to see where they are. */
+.pgz :focus-visible {
+	outline: 2px solid var(--pgz-accent);
+	outline-offset: 3px;
+}
+
+/* ---------- readout ---------- */
+
+.pgz__readout {
+	display: flex;
+	gap: 1.5rem;
+	margin-bottom: 1rem;
+	font-family: var(--pgz-mono);
+	font-size: .72rem;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--pgz-muted);
+}
+
+.pgz__readout b {
+	color: var(--pgz-text);
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+}
+
+.pgz__status {
+	margin: 1rem 0 0;
+	min-height: 1.2em;
+	font-size: .88rem;
+	color: var(--pgz-muted);
+}
+
+.pgz__status--bad { color: #e8836d; }
+.pgz__status--good { color: var(--pgz-accent); }
+
+/* ---------- sliding board ---------- */
+
+.pgz__board {
+	display: grid;
+	gap: 6px;
+	width: min(340px, 100%);
+	aspect-ratio: 1;
+	padding: 6px;
+	background: var(--pgz-ink);
+	border: 1px solid var(--pgz-line);
+	border-radius: 3px;
+}
+
+.pgz__tile {
+	display: grid;
+	place-items: center;
+	font-family: var(--pgz-mono);
+	font-size: clamp(1rem, 6cqw, 1.6rem);
+	font-weight: 600;
+	color: var(--pgz-text);
+	background: var(--pgz-raised);
+	background-size: 300% 300%;
+	border: 0;
+	border-top: 1px solid rgba(255, 255, 255, .07);
+	border-radius: 2px;
+	cursor: pointer;
+	/* Only transform and opacity are animated: both are composited by the GPU,
+	   so sliding stays smooth even on a cheap phone. */
+	transition: transform .13s cubic-bezier(.3, .8, .4, 1);
+}
+
+.pgz__tile:hover { transform: scale(1.03); }
+.pgz__tile--blank { visibility: hidden; }
+.pgz__tile--img { color: transparent; }
+
+/* ---------- text answer ---------- */
+
+.pgz__question {
+	margin: 0 0 1rem;
+	font-size: 1.05rem;
+	line-height: 1.5;
+}
+
+.pgz__sequence {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem;
+	margin: 0 0 1.25rem;
+	padding: 0;
+	list-style: none;
+}
+
+.pgz__sequence li {
+	min-width: 3rem;
+	padding: .6rem .5rem;
+	font-family: var(--pgz-mono);
+	font-size: 1.05rem;
+	text-align: center;
+	background: var(--pgz-raised);
+	border-radius: 2px;
+}
+
+.pgz__sequence li:last-child {
+	color: var(--pgz-accent);
+	background: transparent;
+	border: 1px dashed var(--pgz-line);
+}
+
+.pgz__form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .6rem;
+}
+
+.pgz__input {
+	flex: 1 1 12rem;
+	padding: .7rem .85rem;
+	font: inherit;
+	font-size: .95rem;
+	color: var(--pgz-text);
+	background: var(--pgz-ink);
+	border: 1px solid var(--pgz-line);
+	border-radius: 2px;
+}
+
+.pgz__input::placeholder { color: #5f7285; }
+
+/* ---------- reveal ---------- */
+
+.pgz__revealed {
+	animation: pgz-rise .55s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+@keyframes pgz-rise {
+	from { opacity: 0; transform: translateY(14px); }
+	to   { opacity: 1; transform: none; }
+}
+
+.pgz.is-open .pgz__plate {
+	padding: 0;
+	color: inherit;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+
+.pgz__confetti {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+/* ---------- editor preview + noscript ---------- */
+
+.pgz-preview {
+	position: relative;
+	margin: 2rem 0;
+	padding: 2.25rem 1.25rem 1.25rem;
+	border: 1px dashed #c9a227;
+	border-radius: 4px;
+}
+
+.pgz-preview__tag {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: .3rem .6rem;
+	font-family: ui-monospace, monospace;
+	font-size: .7rem;
+	letter-spacing: .05em;
+	color: #0e141b;
+	background: #c9a227;
+}
+
+.pgz__noscript {
+	padding: 1rem;
+	color: #8ea0b2;
+	background: #18222d;
+	border-radius: 3px;
+}
+
+/* ---------- motion preferences ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.pgz *,
+	.pgz__revealed {
+		animation: none !important;
+		transition: none !important;
+	}
+}
