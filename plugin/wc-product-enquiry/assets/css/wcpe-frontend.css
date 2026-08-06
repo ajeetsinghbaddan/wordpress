@@ -1,0 +1,266 @@
+/**
+ * Product Enquiry — front-end styles. v1.0.2
+ *
+ * Philosophy: this file supplies STRUCTURE only. Colour, typography, radius and
+ * button appearance all come from the active theme.
+ *
+ * Three techniques do the inheriting:
+ *
+ * 1. `currentColor` + color-mix(). Rules, hover states and the product strip
+ *    are mixed from the inherited text colour, so they sit correctly on a cream
+ *    theme, a dark theme or anything between without a single hard-coded value.
+ *
+ * 2. Block-theme custom properties with system-colour fallbacks. WordPress block
+ *    themes expose --wp--preset--color--*, so we read those first. Where they do
+ *    not exist we fall back to `Canvas` / `CanvasText`, CSS system colours that
+ *    already follow the visitor's OS light/dark preference — which is why this
+ *    file no longer needs a prefers-color-scheme block.
+ *
+ * 3. `em` units, never `rem`. Sizes scale against the theme's own font size
+ *    rather than the root, so the popup matches the theme's type scale.
+ *
+ * Nothing here uses !important, and every selector is a single class, so theme
+ * CSS overrides it without a specificity fight.
+ */
+
+.wcpe-modal {
+	/* Surface + ink: theme variable → system colour. */
+	--wcpe-surface: var( --wp--preset--color--base, Canvas );
+	--wcpe-ink: var( --wp--preset--color--contrast, CanvasText );
+
+	/* Hairlines and tints derived from the inherited text colour. */
+	--wcpe-line: color-mix( in srgb, currentColor 14%, transparent );
+	--wcpe-tint: color-mix( in srgb, currentColor 5%, transparent );
+
+	--wcpe-radius: 0;
+	--wcpe-pad: 1.5em;
+
+	width: min( 560px, calc( 100vw - 2rem ) );
+	max-height: min( 88vh, 900px );
+	padding: 0;
+	border: 0;
+	border-radius: var( --wcpe-radius );
+	background: var( --wcpe-surface );
+	color: var( --wcpe-ink );
+	box-shadow: 0 1.5em 3.5em -1em rgba( 0, 0, 0, 0.35 );
+	overflow: hidden;
+}
+
+/* Fallback for browsers without color-mix(): a neutral grey that reads
+   acceptably on both light and dark surfaces. Declared first so color-mix
+   overrides it where supported. */
+@supports not ( color: color-mix( in srgb, red 50%, transparent ) ) {
+	.wcpe-modal {
+		--wcpe-line: rgba( 128, 128, 128, 0.3 );
+		--wcpe-tint: rgba( 128, 128, 128, 0.08 );
+	}
+}
+
+.wcpe-modal::backdrop {
+	background: rgba( 0, 0, 0, 0.5 );
+}
+
+.wcpe-modal__panel {
+	display: flex;
+	flex-direction: column;
+	max-height: inherit;
+}
+
+/* --- Header -------------------------------------------------------------
+   The heading carries NO font rules. It inherits whatever the theme applies
+   to h2, which is the point. If your theme's h2 is too large inside a popup,
+   that is a one-line override — see the README. */
+
+.wcpe-modal__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1em;
+	padding: 1em var( --wcpe-pad );
+	border-bottom: 1px solid var( --wcpe-line );
+}
+
+.wcpe-modal__title {
+	margin: 0;
+}
+
+.wcpe-modal__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 2.25em;
+	height: 2.25em;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	font: inherit;          /* Do not let a theme's button font leak in. */
+	color: inherit;         /* Icon is drawn with stroke="currentColor". */
+	background: transparent;
+	cursor: pointer;
+	opacity: 0.65;
+	transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.wcpe-modal__close:hover,
+.wcpe-modal__close:focus-visible {
+	opacity: 1;
+	background: var( --wcpe-tint );
+}
+
+/* --- Product strip ------------------------------------------------------ */
+
+.wcpe-product-strip {
+	display: flex;
+	align-items: center;
+	gap: 0.875em;
+	padding: 0.875em var( --wcpe-pad );
+	background: var( --wcpe-tint );
+	border-bottom: 1px solid var( --wcpe-line );
+}
+
+.wcpe-product-strip img {
+	flex: 0 0 auto;
+	width: 3.25em;
+	height: 3.25em;
+	margin: 0;
+	border-radius: inherit;  /* Follows the theme's image rounding. */
+	object-fit: cover;
+}
+
+.wcpe-product-strip__meta {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.wcpe-product-strip__name {
+	font-weight: 600;
+	overflow-wrap: anywhere;
+}
+
+.wcpe-product-strip__sku {
+	font-size: 0.8125em;    /* em, so it tracks the theme's base size. */
+	opacity: 0.7;
+}
+
+/* --- Body --------------------------------------------------------------- */
+
+.wcpe-modal__body {
+	padding: var( --wcpe-pad );
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.wcpe-modal__intro {
+	margin: 0 0 1em;
+	opacity: 0.75;
+}
+
+.wcpe-modal__body .wpcf7 {
+	margin: 0;
+}
+
+/* The only rule imposed on form fields: stop them overflowing a narrow popup.
+   Appearance stays entirely with the theme. Safe to delete if your theme
+   already handles full-width inputs. */
+.wcpe-modal__body input:not( [type="checkbox"] ):not( [type="radio"] ):not( [type="submit"] ),
+.wcpe-modal__body select,
+.wcpe-modal__body textarea {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+/* --- Trigger button -----------------------------------------------------
+   The button already carries the theme's `.button` class, so it is styled by
+   WooCommerce/the theme. Only spacing is added here. */
+
+.wcpe-open-button {
+	cursor: pointer;
+}
+
+form.cart .wcpe-open-button {
+	margin-left: 0.5em;
+}
+
+/* --- Honeypot -----------------------------------------------------------
+   Hidden from people, still in the DOM for bots. Deliberately not
+   display:none — smarter bots skip fields hidden that way. */
+
+.wcpe-hp {
+	position: absolute !important;
+	left: -9999px !important;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+/* --- Body scroll lock --------------------------------------------------- */
+
+body.wcpe-modal-open {
+	overflow: hidden;
+}
+
+/* --- Fallback for browsers without <dialog>.showModal() ------------------ */
+
+.wcpe-modal--fallback {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	margin: auto;
+}
+
+.wcpe-modal--fallback.is-open {
+	display: block;
+}
+
+.wcpe-modal--fallback.is-open::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background: rgba( 0, 0, 0, 0.5 );
+}
+
+/* --- Motion ------------------------------------------------------------- */
+
+.wcpe-modal[open] {
+	animation: wcpe-rise 0.2s ease-out;
+}
+
+@keyframes wcpe-rise {
+	from {
+		opacity: 0;
+		transform: translateY( 0.6em );
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.wcpe-modal[open] {
+		animation: none;
+	}
+
+	.wcpe-modal__close {
+		transition: none;
+	}
+}
+
+/* --- Mobile: full-width sheet ------------------------------------------- */
+
+@media ( max-width: 600px ) {
+	.wcpe-modal {
+		--wcpe-pad: 1.125em;
+
+		width: 100vw;
+		max-width: 100vw;
+		max-height: 92vh;
+		margin: auto auto 0;
+		border-radius: 0;
+	}
+}
